@@ -1,8 +1,8 @@
 # seed.py
 
 from sqlalchemy.orm import sessionmaker, Session
-from data.tea_data import teas_list, comments_list
 from data.user_data import user_list
+from data.component_data import components_list
 from config.environment import DATABASE_URL
 from sqlalchemy import create_engine
 from models.base import Base
@@ -23,6 +23,8 @@ try:
     db = SessionLocal()
 
     db.add_all(user_list)
+    db.commit()
+    db.add_all(components_list)
     db.commit()
 
     db.close()

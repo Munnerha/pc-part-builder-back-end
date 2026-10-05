@@ -16,6 +16,10 @@ class UserModel(BaseModel):
     username = Column(String, unique=True)  # Each username must be unique
     email = Column(String, unique=True)  # Each email must be unique
     password = Column(String, nullable=True)
+    role = Column(String, nullable=False, default="user")
+
+    builds = relationship("BuildModel", back_populates="user", cascade="all, delete-orphan")
+    
 
     def set_password(self, plain_txt_password: str):
         self.password = pwd_context.hash(plain_txt_password)

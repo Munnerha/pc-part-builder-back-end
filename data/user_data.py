@@ -12,6 +12,9 @@ def create_test_users():
     user5 = UserModel(username="elena_popov", email="elena.popov@mail.ru")
     user5.set_password("123")
 
-    return [user1, user2, user3, user4, user5]
+    admin = UserModel(username="admin", email="admin@pcpartbuilder.com", role="admin")
+    admin.set_password("123")
+
+    return [user1, user2, user3, user4, user5, admin]
 
 user_list = create_test_users()

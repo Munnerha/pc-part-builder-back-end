@@ -2,6 +2,7 @@
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from typing import List
 from models.user import UserModel
 from serializers.user import UserSchema, UserRegistrationSchema, UserLoginSchema, UserTokenSchema
 from database import get_db
@@ -53,3 +54,27 @@ def login(user: UserLoginSchema, db: Session = Depends(get_db)):
 @router.get('/current_user', response_model=UserSchema)
 def current_user(user: UserSchema = Depends(get_current_user)):
     return user
+
+@router.get("/users", response_model=List[UserSchema])
+def get_users(db: Session = Depends(get_db), user: UserModel = Depends(get_current_user)):
+    if user.role != "admin":
+        raise HTTPException(status_code=403, detail="Forbidden")
+
+    users = db.query(UserModel).all()
+
+    return users
+
+@router.delete("/users/{user_id}", status_code=204)
+def delete_user(user_id: int, db: Session = Depends(get_db), user: UserModel = Depends(get_current_user)):
+    if user.role != "admin":
+        raise HTTPException(status_code=403, detail="Forbidden")
+
+    db_user = db.query(UserModel).filter(UserModel.id == user_id).first()
+
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    db.delete(db_user)
+    db.commit()
+
+    return None

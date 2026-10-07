@@ -25,7 +25,7 @@ motherboards = [
     ComponentModel(category="Motherboard", brand="ASUS", name="ROG Strix B650E-I Gaming WiFi", price=380, socket="AM5", memory_type="DDR5", form_factor="Mini-ITX"),
 ]
 
-mmemory = [
+memory = [
     ComponentModel(category="RAM", brand="Corsair", name="Vengeance LPX 16GB (2x8GB) DDR4-3200", price=123, memory_type="DDR4"),
     ComponentModel(category="RAM", brand="G.Skill", name="Ripjaws V 32GB (2x16GB) DDR4-3600", price=265, memory_type="DDR4"),
     ComponentModel(category="RAM", brand="Corsair", name="Vengeance 32GB (2x16GB) DDR5-6000", price=440, memory_type="DDR5"),
